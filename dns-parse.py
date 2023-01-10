@@ -33,7 +33,7 @@ if ((len(sys.argv)==4) and ((sys.argv[3]=='bind') or (sys.argv[3]=='collaborator
         elif logtype == 'bind':
           base32+=substring[13]
   # base32 uses '=' signs to pad to an 8-byte boundary, restore any that are missing
-  pad='=' * (8-(len(base32) % 8))
+  pad='=' * (abs(len(base32) % -8))
   base32+=pad
   print(base32)
 else:
