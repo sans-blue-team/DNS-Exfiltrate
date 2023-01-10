@@ -1,6 +1,6 @@
 # DNS-Exfiltrate
 
-Parses bind query logs or private Burp Collaborator output to exfiltrate data. Note that you will get more reliable results by specifying the name server via `dig @`...
+Parses bind query logs or private Burp Collaborator output to exfiltrate data. 
 
 Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `h6olm71com6vuvx1bsaqddjik9q4et.oastify.com`
 
@@ -23,6 +23,8 @@ Hex encoding is also safe for DNS queries (but is less efficient). I may add hex
 Thanks to Xavier Mertens for this excellent Internet Storm Center post: https://isc.sans.edu/diary/DNS+Query+Length...+Because+Size+Does+Matter/22326
 
 ## Use cases (bash):
+
+Note that you will receive more reliable results by specifying the name server via `dig @`...
 
 ### Exfiltrate a file:
 
