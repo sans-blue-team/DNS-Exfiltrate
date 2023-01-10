@@ -25,7 +25,7 @@ Burp Collaborator response:
 java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
 ```
 
-Assumes hostnames are encoded in base32 (`A-Z`, `2-7`), which most efficent native encoding utility (on most Linux/Unix systems) that is safe for DNS queries. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` adds any missing `=` characters back.
+Assumes hostnames are encoded in base32 (`A-Z`, `2-7`), which is the most efficent native encoding utility (on most Linux/Unix systems) that is safe for DNS queries. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` adds any missing `=` characters back.
 
 Hex encoding is also safe for DNS queries (but is less efficient). I may add hex support in the future. `base64` does not work due to `/` and `+`.
 
