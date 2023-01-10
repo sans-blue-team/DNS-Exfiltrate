@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 #
 # dns-parse.py
-# Extracts base32-encoded data exfiltrated to Bind query logs or Burp private Collaborator logs
+# Extracts base32-encoded data exfiltrated to Bind query logs or Burp private Collaborator output
+#
+# Private Burp Collaborator output may be logged via 'tee':
+# java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
 #
 # Eric Conrad
 # https://ericconrad.com
