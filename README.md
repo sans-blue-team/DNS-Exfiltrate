@@ -8,7 +8,7 @@ It parses native bind query logs, or private Burp Collaborator output, which may
 java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
 ```
 
-Assumes logs are encoded in `base32` (`A-Z`, `2-7`), which most efficent native (on most Linux/Unix systems) utility that is safe for DNS queries. The `=` character is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` adds any missing `=` characters back.
+Assumes hostnames are encoded in `base32` (`A-Z`, `2-7`), which most efficent native (on most Linux/Unix systems) utility that is safe for DNS queries. The `=` character is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` adds any missing `=` characters back.
 
 Hex encoding is also safe for DNS queries (but is less efficient). I may add hex support in the future. `base64` does not work due to `/` and `+`.
 
