@@ -2,7 +2,11 @@
 
 Parses bind query logs or private Burp Collaborator output to exfiltrate data. Note that you will get more reliable results by specifying the name server via `dig @`...
 
-It parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee`:
+Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `h6olm71com6vuvx1bsaqddjik9q4et.oastify.com`
+
+You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS.
+
+`dns-parse.py` parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee`:
 
 ```
 java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
