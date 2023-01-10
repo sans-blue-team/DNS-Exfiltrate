@@ -1,6 +1,6 @@
 # DNS-Exfiltrate
 
-Parses bind query or Private Burp Collaborator logs to exfiltrate data. Note that you will get more reliable results by specifying the name server via `dig @`...
+Parses bind query logs or Private Burp Collaborator logs to exfiltrate data. Note that you will get more reliable results by specifying the name server via `dig @`...
 
 It parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee`:
 
