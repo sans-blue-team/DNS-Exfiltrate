@@ -1,6 +1,6 @@
 # DNS-Exfiltrate
 
-Parses bind query logs or private Burp Collaborator output to exfiltrate data. 
+Parses bind query logs or private Burp Collaborator output to decode exfiltrated data. 
 
 Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
 
