@@ -35,7 +35,7 @@ Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-merte
 
 Note that you will receive more reliable results by specifying the name server via `dig @`...
 
-In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator. For example: `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
+In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator. For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
 
 ### Exfiltrate a file:
 
