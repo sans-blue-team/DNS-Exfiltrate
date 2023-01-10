@@ -8,6 +8,12 @@
 #
 # Eric Conrad
 # https://ericconrad.com
+# 
+# Todo list:
+# - Decode base32 natively
+# - Add hex decoding
+# - Detect compressed data and automatically decompress
+
 import re
 import sys
 
