@@ -81,3 +81,13 @@ Decode/save the tar archive:
 ```
 /dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator1.log | base32 -d
 ```
+
+## Sample Logs
+
+[collaborator2.log](collaborator2.log) (gzipped /etc/passwd exfiltration):
+
+```
+/dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator1.log | base32 -d | zcat
+```
+
+
