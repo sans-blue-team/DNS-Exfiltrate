@@ -74,3 +74,11 @@ Decode/save the tar archive:
 ```
 ./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
 ```
+
+## Sample Logs
+
+collaborator1.log (/etc/passwd exfiltration):
+
+```
+/dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator1.log | base32 -d
+```
