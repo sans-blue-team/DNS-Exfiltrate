@@ -100,4 +100,8 @@ Decode/save the tar archive:
 /dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator2.log | base32 -d | zcat
 ```
 
+[collaborator3.log](collaborator2.log) (gzipped /etc/passwd exfiltration):
 
+```
+/dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
+```
