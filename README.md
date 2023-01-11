@@ -2,9 +2,9 @@
 
 Parses bind query logs or private Burp Collaborator output to decode exfiltrated data. 
 
-Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
+Burp Collaborator allows prepending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
 
-You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS. Works best with a private Burp Collaborator server (or any DNS server that logs queries). You may also do this with a public server and a sniffer such as tcpdump (no DNS server required). I plan to add pcap support in the future.
+You may prepend 'hostnames' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). You may also prepend multiple hostnames, as long was the entire request is 253 bytes or less. This allows exfiltration (including blind exfiltration) of data via DNS. Works best with a private Burp Collaborator server (or any DNS server that logs queries). You may also do this with a public server and a sniffer such as tcpdump (no DNS server required). I plan to add pcap support in the future.
 
 Exfiltrate the base32-encoded output from `whoami` via Burp Collaborator:
 
