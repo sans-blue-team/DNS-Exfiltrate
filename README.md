@@ -6,7 +6,7 @@ Burp Collaborator allows appending hostnames to the provided address. For exampl
 
 You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS.
 
-Here is the base32-encoded output from `whoami` exfiltrated via Burp Collaborator:
+Exfiltrate the base32-encoded output from `whoami` via Burp Collaborator:
 
 Command:
 
