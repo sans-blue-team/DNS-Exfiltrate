@@ -4,7 +4,7 @@ Parses bind query logs or private Burp Collaborator output to decode exfiltrated
 
 Burp Collaborator allows appending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
 
-You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS.
+You may prepend a 'hostname' (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). This allows exfiltration (including blind exfiltration) of data via DNS. Works best with a private Burp Collaborator server (or any DNS server that logs queries).
 
 Exfiltrate the base32-encoded output from `whoami` via Burp Collaborator:
 
