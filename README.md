@@ -97,7 +97,7 @@ Decode/save the tar archive:
 [collaborator2.log](collaborator2.log) (/etc/passwd exfiltration):
 
 ```
-/dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d | zcat
+/dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d 
 ```
 
 [collaborator3.log](collaborator3.log) (gzipped /etc/passwd exfiltration):
