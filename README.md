@@ -77,7 +77,7 @@ Decode/save the tar archive:
 
 ## Sample Logs
 
-collaborator1.log (/etc/passwd exfiltration):
+[collaborator1.log](collaborator1.log) (/etc/passwd exfiltration):
 
 ```
 /dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator1.log | base32 -d
