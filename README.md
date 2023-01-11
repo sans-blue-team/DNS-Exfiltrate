@@ -26,7 +26,7 @@ java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root
 
 Assumes hostnames are encoded in base32 (`A-Z`, `2-7`), which is the most efficent native encoding utility (on most Linux/Unix systems) that is safe for DNS queries. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` appends any missing `=` characters.
 
-Hex encoding is also safe for DNS queries (but is less efficient). I may add hex support in the future. base64 does not work due to `/` and `+`.
+Hex encoding is also safe for DNS queries (but is less efficient). I plan to add hex support in the future. base64 does not work due to `/` and `+`.
 
 Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-mertens/) for his excellent [Internet Storm Center](https://isc.sans.edu/) post: [DNS Query Length... Because Size Does Matter](https://isc.sans.edu/diary/DNS+Query+Length...+Because+Size+Does+Matter/22326)
 
