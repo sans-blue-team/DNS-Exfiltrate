@@ -18,7 +18,6 @@ Burp Collaborator response:
 
 ![Screen Shot 2023-01-10 at 2 59 05 PM](https://user-images.githubusercontent.com/14989334/211650128-5d6a8562-3d64-4ec8-b530-bc47ae5a0db0.png)
 
-
 `dns-parse.py` parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee` (requires "logLevel" : "DEBUG" in collaborator.config):
 
 ```
@@ -35,7 +34,7 @@ Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-merte
 
 Note that you will receive more reliable results by specifying the name server via `dig @`...
 
-In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator. For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
+In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator (AKA, the interaction ID). For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
 
 ### Exfiltrate a file:
 
