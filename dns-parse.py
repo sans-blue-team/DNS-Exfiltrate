@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #
-# dns-parse.py v0.2
-# Extracts hex- or base32-encoded data exfiltrated to Bind query logs or private Burp Collaborator output
+# dns-parse.py v0.3
+# Extracts and converts hex- or base32-encoded data exfiltrated to Bind query logs or private Burp Collaborator output
 #
 # Private Burp Collaborator output may be logged via 'tee':
 # java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
@@ -10,11 +10,11 @@
 # https://ericconrad.com
 # 
 # Todo list:
-# - Decode base32 and hex natively
 # - Detect compressed data and automatically decompress
 
 import re
 import sys
+import base64
 
 if (len(sys.argv)==3):
   dnsname=sys.argv[1]
@@ -39,11 +39,11 @@ if (len(sys.argv)==3):
     # base32 uses '=' signs to pad to an 8-byte boundary, restore any that are missing
     pad='=' * (abs(len(base32) % -8))
     base32+=pad
-    print(base32)
+    print(base64.b32decode(base32).decode(),end='')
   elif re.search("^[0-9a-f]*$",chunk): # Hex
     hexadecimal=chunk
-    print(hexadecimal)
+    print(bytes.fromhex(hexadecimal).decode('utf-8'),end='')
   else:
-    print('Error: data does not appear to be hex- or base32-encoded')
+    print('Error: data does not appear to be hex- ([9-0a-fa]) or base32-encoded (A-Z2-7])')
 else:
   print('Usage: %s <DNS name> <log name>' % sys.argv[0])
