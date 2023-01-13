@@ -7,7 +7,7 @@ Burp Collaborator allows prepending hostnames to the provided address. You may p
 `dns-parse.py` parses native bind query logs, or private Burp Collaborator output, which may be logged via `tee` (requires "logLevel" : "DEBUG" in collaborator.config):
 
 ```
-java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
+java -jar burpsuite_pro.jar --collaborator-server | tee collaborator.log
 ```
 
 Assumes hostnames are encoded in base32 (`A-Z`, `2-7`) or lowercase hex (`0-9`, `a-f`), which which is safe for DNS queries (and can typically be sent via `bash` on Linux/Unix systems using `base32` or `xxd`). base32 is twice as efficient as hex. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` appends any missing `=` characters. base64 does not work due to `/` and `+`.
