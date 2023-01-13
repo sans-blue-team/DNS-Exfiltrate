@@ -94,17 +94,17 @@ dns-parse.py <DNS Name> (query.log|collaborator.log) > exfiltrated.tgz
 
 ## Sample Logs
 
-[collaborator1.log](collaborator1.log) (STDOUT exfiltration):
+[collaborator1.log](collaborator1.log) (STDOUT exfiltration via base32):
 ```
-dns-parse.py qysipx9bbnhv0u5ez2dkmzuh68cy0n collaborator1.log | base32 -d
-```
-
-[collaborator2.log](collaborator2.log) (/etc/passwd exfiltration):
-```
-dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d 
+dns-parse.py qysipx9bbnhv0u5ez2dkmzuh68cy0n collaborator1.log
 ```
 
-[collaborator3.log](collaborator3.log) (gzipped /etc/passwd exfiltration):
+[collaborator2.log](collaborator2.log) (/etc/passwd exfiltration via base32):
 ```
-dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
+dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log
+```
+
+[collaborator3.log](collaborator3.log) (gzipped /etc/passwd exfiltration via base32):
+```
+dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | zcat
 ```
