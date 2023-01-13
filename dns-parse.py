@@ -44,6 +44,6 @@ if (len(sys.argv)==3):
     hexadecimal=chunk
     print(bytes.fromhex(hexadecimal).decode('utf-8'),end='')
   else:
-    print('Error: data does not appear to be hex- ([9-0a-fa]) or base32-encoded (A-Z2-7])')
+    print('Error: data does not appear to be hex- ([0-9a-f]) or base32-encoded (A-Z2-7])')
 else:
   print('Usage: %s <DNS name> <log name>' % sys.argv[0])
