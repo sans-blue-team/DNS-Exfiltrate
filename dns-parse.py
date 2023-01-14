@@ -4,7 +4,7 @@
 # Extracts and converts hex- or base32-encoded data exfiltrated to Bind query logs or private Burp Collaborator output
 #
 # Private Burp Collaborator output may be logged via 'tee':
-# java -jar /root/collaborator/burpsuite_pro.jar --collaborator-server | tee /root/collaborator/collaborator.log
+# java -jar burpsuite_pro.jar --collaborator-server | tee collaborator.log
 #
 # Eric Conrad
 # https://ericconrad.com
