@@ -16,11 +16,11 @@ Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-merte
 
 ## Use cases (bash):
 
-Note that if results are unreliable you can specify the name or IP of the DNS server via `dig @`...
-
 In the examples below: `<Name>` is the random name provided by Burp Collaborator (AKA, the interaction ID). For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`. Use a different query ID for each transfer.
 
 For `base32`, the `-w63` flag specifies line wrapping at 63 bytes. For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
+
+If results are unreliable you can specify the name or IP of the DNS server via `dig @`...
 
 ### Send STDOUT from a command
 
